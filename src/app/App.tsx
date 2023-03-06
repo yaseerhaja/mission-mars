@@ -1,6 +1,9 @@
-import './App.css';
+import React from "react";
 
-function App() {
+interface Props {
+  name: string;
+}
+const App: React.FC<Props> = ({ name }) => {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +21,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
