@@ -17,6 +17,7 @@
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
     "sass": "^1.58.3",
     "web-vitals": "^2.1.4",
@@ -25,9 +26,10 @@
   "scripts": {
     "start-dev": "react-scripts start",
     "start": "node server/server.js",
-    "build": "yarn && react-scripts build",
+    "build": "yarn && react-scripts build && yarn copy:assets",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "copy:assets": "cpx 'src/assets/**' 'build/assets'"
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +55,7 @@
     "@types/autosuggest-highlight": "^3.2.0",
     "@types/jest": "^29.4.0",
     "autosuggest-highlight": "^3.3.4",
+    "cpx": "^1.5.0",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "ts-jest": "^29.0.5",

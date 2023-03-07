@@ -1,8 +1,11 @@
+import Container from "@mui/material/Container";
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Header from "./components/Header";
-import { SearchBar } from "./components/SearchBar";
-import TableView from "./components/TableView";
+import Home from "./pages/Home";
+import Mission from "./pages/Mission";
+
 interface Props {
   name: string;
 }
@@ -10,16 +13,13 @@ const App: React.FC<Props> = ({ name }) => {
   return (
     <div className="App">
       <Header title={"Mission Mars"} />
-      <SearchBar />
-      <TableView />
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
+      <Container maxWidth="xl">
+        <Routes>
+          <Route path="/mission/:id" element={<Mission />} />
+          <Route path="/mission" element={<Mission />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Container>
     </div>
   );
 };

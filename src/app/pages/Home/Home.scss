@@ -1,0 +1,14 @@
+.Home {
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+    div.flex-item {
+      display: flex;
+      flex-flow: column;
+      align-items: end;
+    }
+  }
+}

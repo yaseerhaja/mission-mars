@@ -1,0 +1,8 @@
+.HeroBanner {
+  img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  }
+}
