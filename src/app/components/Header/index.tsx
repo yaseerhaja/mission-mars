@@ -18,8 +18,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import PublicIcon from "@mui/icons-material/Public";
 
-const pages = ["Home"];
-const settings = ["Logout"];
+const pages = [""];
+const settings = [""];
 
 interface AppBarProps {
   title;

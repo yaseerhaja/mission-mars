@@ -1,3 +1,5 @@
+import { Job, MemberInt, MemberType } from "../components/Member";
+
 export interface MissionInt {
   name: string;
   id: number;
@@ -90,5 +92,66 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-7",
     destination: "Mars Alpha 16",
     timeLeft: null,
+  },
+];
+
+export const jsonData: MemberInt[] = [
+  {
+    id: 1,
+    type: "Pilot",
+    fields: [
+      {
+        experience: 5,
+        validation: [
+          {
+            minValue: 10,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 2,
+    type: "Engineer",
+    fields: [
+      {
+        experience: 5,
+        validation: [
+          {
+            minValue: 10,
+          },
+        ],
+      },
+      {
+        job: Job.Mechanics,
+        validation: [
+          {
+            required: true,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 3,
+    type: "Passenger",
+    fields: [
+      {
+        age: 5,
+        validation: [
+          {
+            minValue: 10,
+          },
+        ],
+      },
+      {
+        wealth: "Rich",
+        validation: [
+          {
+            required: false,
+          },
+        ],
+      },
+    ],
   },
 ];

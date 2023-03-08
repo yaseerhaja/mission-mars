@@ -1,6 +1,7 @@
 import { AddCircle } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import React from "react";
+import { Link } from "react-router-dom";
 import { HeroBanner } from "../../components/HeroBanner";
 import { SearchBar } from "../../components/SearchBar";
 import TableView from "../../components/TableView";
@@ -18,7 +19,12 @@ const Home: React.FC<Props> = () => {
         <h1 className="flex-item">Mission</h1>
         <div className="flex-item">
           <SearchBar missionList={missionList} />
-          <Button variant="outlined" startIcon={<AddCircle />}>
+          <Button
+            component={Link}
+            to="/mission"
+            variant="outlined"
+            startIcon={<AddCircle />}
+          >
             Add Mission
           </Button>
         </div>
