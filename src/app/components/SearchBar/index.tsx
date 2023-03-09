@@ -8,10 +8,10 @@ import Autocomplete from "@mui/material/Autocomplete";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import { Box } from "@mui/system";
-import { MissionInt } from "../../utils/mocks";
+import { MissionDataInt } from "../../utils/mocks";
 
 interface Props {
-  missionList: MissionInt[];
+  missionList: MissionDataInt[];
 }
 
 export function SearchBar(props: Props) {

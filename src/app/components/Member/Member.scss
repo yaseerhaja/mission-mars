@@ -1,0 +1,9 @@
+.Member {
+  .flex-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 24px;
+  }
+}

@@ -1,11 +1,10 @@
-import { Job, MemberInt, MemberType } from "../components/Member";
+import { Job, MemberInt } from "../components/Member";
 
-export interface MissionInt {
-  name: string;
-  id: number;
+export interface MissionDataInt extends MissionTableInt {
+  memberInfo: MemberInt[];
 }
 
-export interface MissionTableData {
+export interface MissionTableInt {
   id: number;
   members: number;
   destination: string;
@@ -14,21 +13,7 @@ export interface MissionTableData {
   timeLeft: string;
 }
 
-export const missionList: MissionInt[] = [
-  { name: "Expedition 2021-11", id: 1 },
-  { name: "Expedition 2021-12", id: 2 },
-  { name: "Expedition 2021-4", id: 3 },
-  { name: "Expedition 2021-5", id: 4 },
-  { name: "Expedition 2021-6", id: 5 },
-  { name: "Expedition 2021-1", id: 6 },
-  { name: "Expedition 2021-3", id: 7 },
-  {
-    name: "Expedition 2021-7",
-    id: 2003,
-  },
-];
-
-export const missionTableData: MissionTableData[] = [
+export const missionTableData: MissionDataInt[] = [
   {
     id: 1,
     members: 5,
@@ -36,6 +21,66 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-11",
     destination: "Mars Alpha 116",
     timeLeft: null,
+    memberInfo: [
+      {
+        id: 1,
+        type: "Pilot",
+        fields: [
+          {
+            experience: 5,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 2,
+        type: "Engineer",
+        fields: [
+          {
+            experience: 15,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+          {
+            job: Job.Mechanics,
+            validation: [
+              {
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 3,
+        type: "Passenger",
+        fields: [
+          {
+            age: 5,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+          {
+            wealth: "Rich",
+            validation: [
+              {
+                required: false,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 2,
@@ -44,6 +89,66 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-12",
     destination: "Mars Alpha 126",
     timeLeft: null,
+    memberInfo: [
+      {
+        id: 1,
+        type: "Pilot",
+        fields: [
+          {
+            experience: 15,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 2,
+        type: "Engineer",
+        fields: [
+          {
+            experience: 15,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+          {
+            job: Job.Mechanics,
+            validation: [
+              {
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 3,
+        type: "Passenger",
+        fields: [
+          {
+            age: 5,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+          {
+            wealth: "Rich",
+            validation: [
+              {
+                required: false,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 3,
@@ -52,6 +157,22 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-4",
     destination: "Mars Alpha 16",
     timeLeft: null,
+    memberInfo: [
+      {
+        id: 1,
+        type: "Pilot",
+        fields: [
+          {
+            experience: 11,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 4,
@@ -60,6 +181,22 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-5",
     destination: "Mars Alpha 316",
     timeLeft: null,
+    memberInfo: [
+      {
+        id: 1,
+        type: "Pilot",
+        fields: [
+          {
+            experience: 25,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 5,
@@ -68,6 +205,22 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-6",
     destination: "Mars Alpha 416",
     timeLeft: null,
+    memberInfo: [
+      {
+        id: 1,
+        type: "Pilot",
+        fields: [
+          {
+            experience: 15,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 6,
@@ -76,6 +229,22 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-1",
     destination: "Mars Alpha 1416",
     timeLeft: null,
+    memberInfo: [
+      {
+        id: 1,
+        type: "Pilot",
+        fields: [
+          {
+            experience: 25,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 7,
@@ -84,6 +253,22 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-3",
     destination: "Mars Alpha 1216",
     timeLeft: null,
+    memberInfo: [
+      {
+        id: 1,
+        type: "Pilot",
+        fields: [
+          {
+            experience: 35,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 8,
@@ -92,63 +277,18 @@ export const missionTableData: MissionTableData[] = [
     name: "Expedition 2021-7",
     destination: "Mars Alpha 16",
     timeLeft: null,
-  },
-];
-
-export const jsonData: MemberInt[] = [
-  {
-    id: 1,
-    type: "Pilot",
-    fields: [
+    memberInfo: [
       {
-        experience: 5,
-        validation: [
+        id: 1,
+        type: "Pilot",
+        fields: [
           {
-            minValue: 10,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 2,
-    type: "Engineer",
-    fields: [
-      {
-        experience: 5,
-        validation: [
-          {
-            minValue: 10,
-          },
-        ],
-      },
-      {
-        job: Job.Mechanics,
-        validation: [
-          {
-            required: true,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 3,
-    type: "Passenger",
-    fields: [
-      {
-        age: 5,
-        validation: [
-          {
-            minValue: 10,
-          },
-        ],
-      },
-      {
-        wealth: "Rich",
-        validation: [
-          {
-            required: false,
+            experience: 25,
+            validation: [
+              {
+                minValue: 10,
+              },
+            ],
           },
         ],
       },

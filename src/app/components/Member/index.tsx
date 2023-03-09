@@ -2,12 +2,15 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { useParams } from "react-router-dom";
+import { MissionDataInt } from "../../utils/mocks";
 import "./Member.scss";
 
 interface Props {
-  data: MemberInt[];
+  data: MissionDataInt[];
 }
 
 export enum Job {
@@ -26,7 +29,7 @@ export enum MemberType {
 export interface MemberInt {
   id: number;
   type: string;
-  fields: PilotEntity | EngineerEntity[] | PassengerEntity[] | null;
+  fields: PilotEntity[] | EngineerEntity[] | PassengerEntity[] | null;
 }
 
 interface PilotEntity {
@@ -54,7 +57,12 @@ interface ValidationEntity {
 export function Member(props: Props) {
   console.log(props.data);
 
-  const [type, setType] = React.useState("");
+  let { id } = useParams();
+  const missionId = Number(id);
+  const mode: "Edit" | "New" =
+    missionId && typeof missionId === "number" ? "Edit" : "New";
+
+  const [type, setType] = React.useState("Pilot");
 
   const handleChange = (event: SelectChangeEvent) => {
     setType(event.target.value as string);
@@ -62,29 +70,88 @@ export function Member(props: Props) {
 
   return (
     <div className="Member">
-      {props.data.map((dataItem, index) => (
+      {mode === "Edit" ? (
+        props.data.map((dataItem, index) => {
+          return (
+            <>
+              {dataItem.memberInfo.map((member, idx) => (
+                <div className="flex-container">
+                  <FormControl
+                    sx={{ width: "25ch", textAlign: "initial" }}
+                    className="form-item"
+                  >
+                    <InputLabel id={`type-select-label_` + index + `_` + idx}>
+                      Type
+                    </InputLabel>
+                    <Select
+                      labelId={`type-select-label_` + index + `_` + idx}
+                      id="type-select"
+                      value={type}
+                      label="Type"
+                      onChange={handleChange}
+                    ></Select>
+                  </FormControl>
+                  {member.fields.map((field) =>
+                    field.experience ? (
+                      <TextField
+                        required
+                        id="outlined-required"
+                        label="Experiience"
+                        type="number"
+                        defaultValue={field.experience}
+                        className="form-item"
+                      />
+                    ) : field.age ? (
+                      <TextField
+                        required
+                        id="outlined-required"
+                        label="Age"
+                        type="number"
+                        defaultValue={field.age}
+                        className="form-item"
+                      />
+                    ) : field.wealth ? (
+                      <TextField
+                        required
+                        id="outlined-required"
+                        label="Wealth"
+                        defaultValue={field.wealth}
+                        className="form-item"
+                      />
+                    ) : (
+                      <></>
+                    )
+                  )}
+                </div>
+              ))}
+            </>
+          );
+        })
+      ) : mode === "New" ? (
         <div className="flex-container">
           <FormControl
             sx={{ width: "25ch", textAlign: "initial" }}
             className="form-item"
           >
-            <InputLabel id={`type-select-label_` + index}>Type</InputLabel>
+            <InputLabel id={`type-select-label_`}>Type</InputLabel>
             <Select
-              labelId={`type-select-label_` + index}
+              labelId={`type-select-label_`}
               id="type-select"
               value={type}
               label="Type"
               onChange={handleChange}
             >
-              {props.data.map((dataItem) => (
-                <MenuItem value={dataItem.type} key={dataItem.id}>
-                  <Typography textAlign="center">{dataItem.type}</Typography>
+              {Object.keys(MemberType).map((type, index) => (
+                <MenuItem value={MemberType[type]} key={index}>
+                  <Typography textAlign="center">{MemberType[type]}</Typography>
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
         </div>
-      ))}
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

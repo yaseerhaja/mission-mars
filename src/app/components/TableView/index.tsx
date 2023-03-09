@@ -19,11 +19,16 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
-import { missionTableData, MissionTableData } from "../../utils/mocks";
+import {
+  missionTableData,
+  MissionDataInt,
+  MissionTableInt,
+} from "../../utils/mocks";
+import { Link } from "react-router-dom";
 
 interface Props {}
 
-const rows: MissionTableData[] = missionTableData ?? [];
+const rows: MissionDataInt[] = missionTableData ?? [];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -66,7 +71,7 @@ function stableSort<T>(
 
 interface HeadCell {
   disablePadding: boolean;
-  id: keyof MissionTableData;
+  id: keyof MissionTableInt;
   label: string;
   numeric: boolean;
 }
@@ -107,7 +112,7 @@ const headCells: readonly HeadCell[] = [
 interface EnhancedTableProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof MissionTableData
+    property: keyof MissionTableInt
   ) => void;
   order: Order;
   orderBy: string;
@@ -116,8 +121,7 @@ interface EnhancedTableProps {
 function EnhancedTableHead(props: EnhancedTableProps) {
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler =
-    (property: keyof MissionTableData) =>
-    (event: React.MouseEvent<unknown>) => {
+    (property: keyof MissionTableInt) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -178,14 +182,14 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 export default function TableView() {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] =
-    React.useState<keyof MissionTableData>("members");
+    React.useState<keyof MissionTableInt>("members");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof MissionTableData
+    property: keyof MissionTableInt
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -285,6 +289,8 @@ export default function TableView() {
                       </TableCell>
                       <TableCell>
                         <IconButton
+                          component={Link}
+                          to={`/mission/` + row.id}
                           aria-label="edit"
                           onClick={() => onToggleEditMode(row.id)}
                         >

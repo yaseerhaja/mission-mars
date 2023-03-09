@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { HeroBanner } from "../../components/HeroBanner";
 import { SearchBar } from "../../components/SearchBar";
 import TableView from "../../components/TableView";
-import { missionList } from "../../utils/mocks";
+import { missionTableData } from "../../utils/mocks";
 
 import "./Home.scss";
 
@@ -18,7 +18,7 @@ const Home: React.FC<Props> = () => {
       <div className="flex-container">
         <h1 className="flex-item">Mission</h1>
         <div className="flex-item">
-          <SearchBar missionList={missionList} />
+          <SearchBar missionList={missionTableData} />
           <Button
             component={Link}
             to="/mission"

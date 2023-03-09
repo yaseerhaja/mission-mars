@@ -17,9 +17,10 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { jsonData } from "../../utils/mocks";
+import { useParams } from "react-router-dom";
+import { missionTableData } from "../../utils/mocks";
 
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
@@ -31,11 +32,15 @@ interface Props {}
 const Mission: React.FC<Props> = () => {
   const heroImagaeUrl = "/assets/mission.jpg";
 
+  let { id } = useParams();
+  const missionId = Number(id);
+  const mode: "Edit" | "New" =
+    missionId && typeof missionId === "number" ? "Edit" : "New";
+
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     event.preventDefault();
-    console.info("You clicked a breadcrumb.");
   };
 
   const breadcrumbs = [
@@ -47,7 +52,17 @@ const Mission: React.FC<Props> = () => {
     </Typography>,
   ];
 
-  const steps = ["New/Edit Mission", "Members", "Save"];
+  const steps = ["New/Edit Mission", "Members"];
+  const destinations = [
+    "Mars Alpha 116",
+    "Mars Alpha 126",
+    "Mars Alpha 16",
+    "Mars Alpha 316",
+    "Mars Alpha 416",
+    "Mars Alpha 1416",
+    "Mars Alpha 1216",
+    "Mars Alpha 16",
+  ];
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
@@ -75,13 +90,18 @@ const Mission: React.FC<Props> = () => {
     setActiveStep(0);
   };
 
-  const [destination, setDestination] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [destination, setDestination] = React.useState(destinations[0]);
   const [dateInfo, setDateInfo] = React.useState<Dayjs | null>(
     dayjs("2022-04-17")
   );
 
   const handleChange = (event: SelectChangeEvent) => {
     setDestination(event.target.value as string);
+  };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
   return (
@@ -145,7 +165,10 @@ const Mission: React.FC<Props> = () => {
                     required
                     id="outlined-required"
                     label="Name"
-                    defaultValue=""
+                    value={name}
+                    onChange={handleNameChange}
+                    error={name === ""}
+                    helperText={name === "" ? "Required!" : " "}
                     className="form-item"
                   />
                   <FormControl
@@ -162,9 +185,9 @@ const Mission: React.FC<Props> = () => {
                       label="Destination"
                       onChange={handleChange}
                     >
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
+                      {destinations.map((dest) => (
+                        <MenuItem value={dest}>{dest}</MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                   <LocalizationProvider
@@ -175,24 +198,22 @@ const Mission: React.FC<Props> = () => {
                       <MobileDatePicker
                         label="Departure"
                         value={dateInfo}
+                        minDate={dayjs("2022-04-17")}
                         onChange={(newValue) => setDateInfo(newValue)}
                       />
                     </DemoContainer>
                   </LocalizationProvider>
                 </div>
-              ) : activeStep === 1 ? (
+              ) : activeStep === 1 && mode === "Edit" ? (
                 <div className="wizard-container-form2">
-                  <Member data={jsonData} />
+                  <Member data={missionTableData} />
+                </div>
+              ) : activeStep === 1 && mode === "New" ? (
+                <div className="wizard-container-form2">
+                  <Member data={[]} />
                 </div>
               ) : (
-                <div className="wizard-container-form3">
-                  <TextField
-                    id="outlined-helperText"
-                    label="Helper text"
-                    defaultValue="Default Value"
-                    helperText="Some important text"
-                  />
-                </div>
+                <></>
               )}
 
               <Box
