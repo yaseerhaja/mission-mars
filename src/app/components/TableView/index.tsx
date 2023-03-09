@@ -19,16 +19,12 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
-import {
-  missionTableData,
-  MissionDataInt,
-  MissionTableInt,
-} from "../../utils/mocks";
+import { MissionDataInt, MissionTableInt } from "../../utils/mocks";
 import { Link } from "react-router-dom";
 
-interface Props {}
-
-const rows: MissionDataInt[] = missionTableData ?? [];
+interface Props {
+  missionList: MissionDataInt[];
+}
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -179,7 +175,9 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   );
 }
 
-export default function TableView() {
+export default function TableView({ missionList }) {
+  const rows: MissionDataInt[] = missionList ?? [];
+
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] =
     React.useState<keyof MissionTableInt>("members");
@@ -194,15 +192,6 @@ export default function TableView() {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {

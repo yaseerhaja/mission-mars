@@ -155,7 +155,7 @@ export const missionTableData: MissionDataInt[] = [
     members: 5,
     departure: "21/1/2023",
     name: "Expedition 2021-4",
-    destination: "Mars Alpha 16",
+    destination: "Mars Alpha 126",
     timeLeft: null,
     memberInfo: [
       {
