@@ -8,7 +8,6 @@ import { Box } from "@mui/system";
 
 export function SearchBar({ filterBy }) {
   const handleOnChange = (event) => {
-    console.log(event.target.value);
     filterBy({ name: event.target.value });
   };
 

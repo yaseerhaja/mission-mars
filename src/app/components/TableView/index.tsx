@@ -15,7 +15,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-
+import dayjs from "dayjs";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import { MissionDataInt, MissionTableInt } from "../../utils/mocks";
@@ -175,10 +175,6 @@ export default function TableView({ missionList }) {
     setPage(0);
   };
 
-  const onToggleEditMode = (id) => {
-    console.log(id);
-  };
-
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -202,6 +198,13 @@ export default function TableView({ missionList }) {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
+
+                  const dateInFormat = dayjs(row.departure, "DD/MM/YYYY");
+
+                  const timeToGo =
+                    Math.ceil(dateInFormat.diff(dayjs(), "days", true)) + ` `;
+
+                  row.timeLeft = timeToGo + "days to go";
 
                   return (
                     <TableRow hover tabIndex={-1} key={row.name}>
@@ -246,7 +249,6 @@ export default function TableView({ missionList }) {
                           component={Link}
                           to={`/mission/` + row.id}
                           aria-label="edit"
-                          onClick={() => onToggleEditMode(row.id)}
                         >
                           <EditOutlinedIcon />
                         </IconButton>

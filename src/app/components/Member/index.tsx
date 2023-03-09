@@ -51,8 +51,6 @@ interface ValidationEntity {
 }
 
 export function Member(props: Props) {
-  console.log(props.data);
-
   let { id } = useParams();
   const missionId = Number(id);
   const mode: "Edit" | "New" =

@@ -153,7 +153,7 @@ export const missionTableData: MissionDataInt[] = [
   {
     id: 3,
     members: 5,
-    departure: "21/1/2023",
+    departure: "21/04/2023",
     name: "Expedition 2021-4",
     destination: "Mars Alpha 126",
     timeLeft: null,
@@ -201,7 +201,7 @@ export const missionTableData: MissionDataInt[] = [
   {
     id: 5,
     members: 5,
-    departure: "21/04/2023",
+    departure: "01/04/2023",
     name: "Expedition 2021-6",
     destination: "Mars Alpha 416",
     timeLeft: null,
@@ -225,7 +225,7 @@ export const missionTableData: MissionDataInt[] = [
   {
     id: 6,
     members: 5,
-    departure: "21/06/2023",
+    departure: "11/06/2023",
     name: "Expedition 2021-1",
     destination: "Mars Alpha 1416",
     timeLeft: null,
@@ -249,7 +249,7 @@ export const missionTableData: MissionDataInt[] = [
   {
     id: 7,
     members: 5,
-    departure: "21/05/2023",
+    departure: "22/05/2023",
     name: "Expedition 2021-3",
     destination: "Mars Alpha 1216",
     timeLeft: null,
@@ -273,7 +273,7 @@ export const missionTableData: MissionDataInt[] = [
   {
     id: 8,
     members: 5,
-    departure: "21/02/2023",
+    departure: "21/08/2023",
     name: "Expedition 2021-7",
     destination: "Mars Alpha 16",
     timeLeft: null,
