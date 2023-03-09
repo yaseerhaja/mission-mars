@@ -7,8 +7,6 @@ import { HeroBanner } from "../../components/HeroBanner";
 import { SearchBar } from "../../components/SearchBar";
 import TableView from "../../components/TableView";
 
-import { missionTableData } from "../../utils/mocks";
-
 import "./Home.scss";
 
 interface Props {}
@@ -27,6 +25,7 @@ const Home: React.FC<Props> = () => {
     return {
       updateRow: (id) => dispatch({ type: "UPDATE_ROW", payload: id }),
       getData: () => dispatch({ type: "INITIAL" }),
+      filterBy: (name) => dispatch({ type: "SEARCH", payload: name }),
     };
   }
 
@@ -36,13 +35,18 @@ const Home: React.FC<Props> = () => {
     mapDispatchToProps
   )(TableView);
 
+  const ConnectedSearch = connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SearchBar);
+
   return (
     <div className="Home">
       <HeroBanner imageUrl={heroImagaeUrl} />
       <div className="flex-container">
         <h1 className="flex-item">Mission</h1>
         <div className="flex-item">
-          <SearchBar missionList={missionTableData} />
+          <ConnectedSearch />
           <Button
             component={Link}
             to="/mission"

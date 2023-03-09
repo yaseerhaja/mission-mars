@@ -80,10 +80,10 @@ export function Member(props: Props) {
   return (
     <div className="Member">
       {mode === "Edit" ? (
-        props.data.map((dataItem, index) => {
+        props.data?.map((dataItem, index) => {
           return (
             <div key={index}>
-              {dataItem.memberInfo.map((member, idx) => {
+              {dataItem.memberInfo?.map((member, idx) => {
                 return (
                   <div key={idx} className="flex-container">
                     <FormControl
@@ -109,7 +109,7 @@ export function Member(props: Props) {
                         ))}
                       </Select>
                     </FormControl>
-                    {member.fields.map((field, index) =>
+                    {member.fields?.map((field, index) =>
                       field.experience ? (
                         <TextField
                           key={`experience-` + index}
@@ -188,9 +188,9 @@ export function Member(props: Props) {
               label="Type"
               onChange={handleChange.bind(this)}
             >
-              {Object.keys(MemberType).map((type, index) => (
-                <MenuItem value={MemberType[type]} key={index}>
-                  <Typography>{MemberType[type]}</Typography>
+              {MemberType.map((type) => (
+                <MenuItem value={type} key={type}>
+                  <Typography>{type}</Typography>
                 </MenuItem>
               ))}
             </Select>

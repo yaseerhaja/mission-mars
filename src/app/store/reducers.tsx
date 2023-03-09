@@ -2,6 +2,7 @@ import { missionTableData } from "../utils/mocks";
 
 const initialState = {
   tableData: missionTableData,
+  _filterTableData: missionTableData,
 };
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -9,11 +10,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         tableData: [...state.tableData, action.payload],
+        _filterTableData: [...state.tableData, action.payload],
       };
     case "UPDATE_ROW":
       return {
         ...state,
-        tableData: state.tableData.map((row) =>
+        tableData: state.tableData?.map((row) =>
           row.id === action.payload.id ? action.payload : row
         ),
       };
@@ -26,6 +28,15 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         tableData: state.tableData,
+      };
+    case "SEARCH":
+      let filterResult = state._filterTableData;
+      filterResult = filterResult.filter((data) =>
+        data.name.toLowerCase().includes(action.payload.name.toLowerCase())
+      );
+      return {
+        ...state,
+        tableData: filterResult,
       };
     default:
       return state;

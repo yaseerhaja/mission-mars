@@ -3,7 +3,6 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/system/Box";
 import React from "react";
 import dayjs from "dayjs";
-import { v4 as uuidv4 } from "uuid";
 
 import Typography from "@mui/material/Typography";
 import { HeroBanner } from "../../components/HeroBanner";
@@ -164,7 +163,7 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
   const handleCreateMission = () => {
     addRow({
       ...mission,
-      id: uuidv4(),
+      id: Math.floor(Math.random() * 1000),
     });
     setOpen(true);
   };
@@ -190,7 +189,7 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
       autoComplete="off"
     >
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
+        {steps?.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
           return (
             <Step key={label} {...stepProps}>
@@ -230,7 +229,7 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
                   label="Destination"
                   onChange={handleChange}
                 >
-                  {destinations.map((dest, idx) => (
+                  {destinations?.map((dest, idx) => (
                     <MenuItem key={dest} value={dest}>
                       {dest}
                     </MenuItem>
