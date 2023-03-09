@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { HeroBanner } from "../../components/HeroBanner";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -27,6 +27,7 @@ import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 
 import "./Mission.scss";
 import { Member } from "../../components/Member";
+import Modal from "@mui/material/Modal";
 
 interface Props {}
 const Mission: React.FC<Props> = () => {
@@ -65,21 +66,35 @@ const Mission: React.FC<Props> = () => {
   ];
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
-
-  const isStepSkipped = (step: number) => {
-    return skipped.has(step);
+  const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleCloseModal = () => {
+    setOpen(false);
+    navigate("/");
+  };
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "#fff",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
   };
 
+  const handleClose = () => setOpen(false);
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+    if (name === "") {
+      return;
     }
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+  };
+
+  const handleCreateMission = () => {
+    setOpen(true);
   };
 
   const handleBack = () => {
@@ -137,9 +152,6 @@ const Mission: React.FC<Props> = () => {
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
               const stepProps: { completed?: boolean } = {};
-              if (isStepSkipped(index)) {
-                stepProps.completed = false;
-              }
               return (
                 <Step key={label} {...stepProps}>
                   <StepLabel>{label}</StepLabel>
@@ -148,15 +160,7 @@ const Mission: React.FC<Props> = () => {
             })}
           </Stepper>
           {activeStep === steps.length ? (
-            <React.Fragment>
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                All steps completed - you&apos;re finished
-              </Typography>
-              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleReset}>Reset</Button>
-              </Box>
-            </React.Fragment>
+            <></>
           ) : (
             <React.Fragment>
               {activeStep === 0 ? (
@@ -232,9 +236,45 @@ const Mission: React.FC<Props> = () => {
                 >
                   Back
                 </Button>
-                <Button onClick={handleNext}>
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
+                {activeStep === 0 ? (
+                  <Button variant="outlined" onClick={handleNext}>
+                    Next
+                  </Button>
+                ) : (
+                  <Button variant="outlined" onClick={handleCreateMission}>
+                    {mode === "New" ? "Create" : "Update"}
+                  </Button>
+                )}
+
+                <div>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {mode === "New"
+                          ? "New Mission created Successfully."
+                          : "Mission updated successfully"}
+                      </Typography>
+
+                      <Button
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          flexFlow: "row",
+                          width: "100%",
+                          p: 2,
+                        }}
+                        onClick={handleCloseModal}
+                      >
+                        Close
+                      </Button>
+                    </Box>
+                  </Modal>
+                </div>
               </Box>
             </React.Fragment>
           )}
