@@ -1,4 +1,4 @@
-import { Job, MemberInt } from "../components/Member";
+import { MemberInt } from "../components/Member";
 
 export interface MissionDataInt extends MissionTableInt {
   memberInfo: MemberInt[];
@@ -49,7 +49,7 @@ export const missionTableData: MissionDataInt[] = [
             ],
           },
           {
-            job: Job.Mechanics,
+            job: "Mechanics",
             validation: [
               {
                 required: true,
@@ -117,7 +117,7 @@ export const missionTableData: MissionDataInt[] = [
             ],
           },
           {
-            job: Job.Mechanics,
+            job: "Mechanics",
             validation: [
               {
                 required: true,

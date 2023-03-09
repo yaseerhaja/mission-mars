@@ -2,7 +2,7 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/system/Box";
 import React from "react";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 import Typography from "@mui/material/Typography";
 import { HeroBanner } from "../../components/HeroBanner";
@@ -18,7 +18,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useParams } from "react-router-dom";
-import { missionTableData } from "../../utils/mocks";
+import { MissionDataInt, missionTableData } from "../../utils/mocks";
 
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -38,11 +38,22 @@ const Mission: React.FC<Props> = () => {
   const mode: "Edit" | "New" =
     missionId && typeof missionId === "number" ? "Edit" : "New";
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-  };
+  const missionData: MissionDataInt[] =
+    mode === "Edit"
+      ? missionTableData.filter((data) => {
+          return data.id === missionId;
+        })
+      : [
+          {
+            id: null,
+            members: null,
+            destination: "Mars Alpha 116",
+            departure: dayjs().format("DD/MM/YYYY"),
+            name: null,
+            timeLeft: null,
+            memberInfo: null,
+          },
+        ];
 
   const breadcrumbs = [
     <Typography color="inherit" component={Link} to="/">
@@ -68,7 +79,6 @@ const Mission: React.FC<Props> = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   const handleCloseModal = () => {
     setOpen(false);
     navigate("/");
@@ -85,9 +95,11 @@ const Mission: React.FC<Props> = () => {
     p: 4,
   };
 
+  const [mission, setMission] = React.useState(missionData[0]);
+
   const handleClose = () => setOpen(false);
   const handleNext = () => {
-    if (name === "") {
+    if (!mission?.name || mission?.name === "") {
       return;
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -101,22 +113,12 @@ const Mission: React.FC<Props> = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
-  const [name, setName] = React.useState("");
-  const [destination, setDestination] = React.useState(destinations[0]);
-  const [dateInfo, setDateInfo] = React.useState<Dayjs | null>(
-    dayjs("2022-04-17")
-  );
-
   const handleChange = (event: SelectChangeEvent) => {
-    setDestination(event.target.value as string);
+    setMission({ ...mission, destination: event.target.value });
   };
 
   const handleNameChange = (event) => {
-    setName(event.target.value);
+    setMission({ ...mission, name: event.target.value });
   };
 
   return (
@@ -169,10 +171,10 @@ const Mission: React.FC<Props> = () => {
                     required
                     id="outlined-required"
                     label="Name"
-                    value={name}
+                    value={mission.name ?? ""}
                     onChange={handleNameChange}
-                    error={name === ""}
-                    helperText={name === "" ? "Required!" : " "}
+                    error={mission.name === ""}
+                    helperText={mission.name === "" ? "Required!" : " "}
                     className="form-item"
                   />
                   <FormControl
@@ -185,12 +187,15 @@ const Mission: React.FC<Props> = () => {
                     <Select
                       labelId="destination-select-label"
                       id="destination-select"
-                      value={destination}
+                      defaultValue={destinations[0]}
+                      value={mission?.destination ?? ""}
                       label="Destination"
                       onChange={handleChange}
                     >
-                      {destinations.map((dest) => (
-                        <MenuItem value={dest}>{dest}</MenuItem>
+                      {destinations.map((dest, idx) => (
+                        <MenuItem key={dest} value={dest}>
+                          {dest}
+                        </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
@@ -201,16 +206,27 @@ const Mission: React.FC<Props> = () => {
                     <DemoContainer components={["DatePicker"]}>
                       <MobileDatePicker
                         label="Departure"
-                        value={dateInfo}
-                        minDate={dayjs("2022-04-17")}
-                        onChange={(newValue) => setDateInfo(newValue)}
+                        value={
+                          mission
+                            ? dayjs(mission?.departure, "DD/MM/YYYY")
+                            : dayjs()
+                        }
+                        minDate={dayjs()}
+                        onChange={(newValue) =>
+                          setMission({
+                            ...mission,
+                            departure: dayjs(newValue, "DD/MM/YYYY").format(
+                              "DD/MM/YYYY"
+                            ),
+                          })
+                        }
                       />
                     </DemoContainer>
                   </LocalizationProvider>
                 </div>
               ) : activeStep === 1 && mode === "Edit" ? (
                 <div className="wizard-container-form2">
-                  <Member data={missionTableData} />
+                  <Member data={[mission]} />
                 </div>
               ) : activeStep === 1 && mode === "New" ? (
                 <div className="wizard-container-form2">
