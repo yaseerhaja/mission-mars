@@ -11,7 +11,7 @@ export function HeroBanner(props: Props) {
 
   return (
     <div className="HeroBanner">
-      <img src={props.imageUrl} srcSet={getImageSrcset()} />
+      <img alt="iamge" src={props.imageUrl} srcSet={getImageSrcset()} />
     </div>
   );
 }

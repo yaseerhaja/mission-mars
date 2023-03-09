@@ -4,7 +4,6 @@
  *
  */
 import * as React from "react";
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -16,15 +15,11 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
+
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import { MissionDataInt, MissionTableInt } from "../../utils/mocks";
 import { Link } from "react-router-dom";
-
-interface Props {
-  missionList: MissionDataInt[];
-}
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -151,37 +146,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-interface EnhancedTableToolbarProps {
-  numSelected: number;
-}
-
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    ></Toolbar>
-  );
-}
-
 export default function TableView({ missionList }) {
   const rows: MissionDataInt[] = missionList ?? [];
 
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] =
     React.useState<keyof MissionTableInt>("members");
-  const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -209,8 +179,6 @@ export default function TableView({ missionList }) {
     console.log(id);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -233,9 +201,6 @@ export default function TableView({ missionList }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(
-                    typeof row.name === "string" ? row.name : ""
-                  );
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (

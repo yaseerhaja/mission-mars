@@ -19,7 +19,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useParams } from "react-router-dom";
-import { MissionDataInt, missionTableData } from "../../utils/mocks";
+import { MissionDataInt } from "../../utils/mocks";
 
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -116,7 +116,6 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
         ];
   const [mission, setMission] = React.useState(missionData[0]);
   const [activeStep, setActiveStep] = React.useState(0);
-  const [list, setList] = React.useState(missionTableData);
 
   const steps = ["New/Edit Mission", "Members"];
   const destinations = [
