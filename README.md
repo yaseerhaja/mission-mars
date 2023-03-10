@@ -19,6 +19,28 @@ You may also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+
+### `Technology Used:`
+Front End : React 18(Functional Component), MUI React Component Library , HTML5 , CSS 3, ES6, Redux Store, Typescript, 
+Backend : Node JS, Express
+Logger: Winston
+Cloud Deployment : Render
+Up and Running:
+'mission-mars' is the application name.
+
+### `Installation:`
+1. Server :
+            Navigate to mission-mars folder.
+            In command prompt / bash prompt run 'yarn'
+            Run 'yarn build && yarn start'
+            Server runs at port 3000
+           
+2. Application URL for Testing : http://localhost:3000/
+
+### `Hosted URL:`
+https://mission-mars.onrender.com/
+
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
