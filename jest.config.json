@@ -1,0 +1,21 @@
+{
+  "setupFilesAfterEnv": [
+    "<rootDir>/src/setupTests.js",
+    "<rootDir>/test-setup.js"
+  ],
+  "setupFiles": ["<rootDir>/jest-shim.js"],
+  "testRegex": "/*.test.tsx$",
+  "collectCoverage": true,
+  "coverageReporters": ["lcov"],
+  "coverageDirectory": "test-coverage",
+  "testEnvironment": "jsdom",
+  "coverageThreshold": {
+    "global": {
+      "branches": 0,
+      "functions": 0,
+      "lines": 0,
+      "statements": 0
+    }
+  },
+  "moduleDirectories": ["node_modules", "src"]
+}
