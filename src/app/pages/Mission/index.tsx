@@ -115,6 +115,7 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
         ];
   const [mission, setMission] = React.useState(missionData[0]);
   const [activeStep, setActiveStep] = React.useState(0);
+  let membersInfo = [];
 
   const steps = ["New/Edit Mission", "Members"];
   const destinations = [
@@ -161,14 +162,18 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
   };
 
   const handleCreateMission = () => {
+    mission.memberInfo = membersInfo;
+    mission.members = membersInfo.length;
     addRow({
       ...mission,
-      id: Math.floor(Math.random() * 1000),
+      id: Date.now(),
     });
     setOpen(true);
   };
 
   const handleUpdateMission = () => {
+    mission.memberInfo = membersInfo;
+    mission.members = membersInfo.length;
     updateRow({
       ...mission,
     });
@@ -177,6 +182,10 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const CallBack = (members) => {
+    membersInfo = members;
   };
 
   return (
@@ -208,10 +217,10 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
                 required
                 id="outlined-required"
                 label="Name"
-                value={mission.name ?? ""}
+                value={mission?.name ?? ""}
                 onChange={handleNameChange}
-                error={mission.name === ""}
-                helperText={mission.name === "" ? "Required!" : " "}
+                error={mission?.name === null}
+                helperText={mission?.name === null ? "Required!" : ""}
                 className="form-item"
               />
               <FormControl
@@ -263,11 +272,11 @@ const StepperComponent = ({ missionList, updateRow, addRow }) => {
             </div>
           ) : activeStep === 1 && mode === "Edit" ? (
             <div className="wizard-container-form2">
-              <Member data={[mission]} />
+              <Member data={[mission]} handleCallBack={CallBack} />
             </div>
           ) : activeStep === 1 && mode === "New" ? (
             <div className="wizard-container-form2">
-              <Member data={[]} />
+              <Member data={[]} handleCallBack={CallBack} />
             </div>
           ) : (
             <></>

@@ -12,3 +12,24 @@
     }
   }
 }
+
+@media (max-width: 640px) {
+  .Home {
+    .flex-container {
+      flex-flow: column;
+
+      .flex-item {
+        & > a {
+          width: 100%;
+        }
+        & > div {
+          margin: 24px 0;
+
+          & > div {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

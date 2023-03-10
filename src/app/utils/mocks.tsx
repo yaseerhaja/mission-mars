@@ -28,11 +28,6 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 5,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
         ],
       },
@@ -42,19 +37,9 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 15,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
           {
             job: "Mechanics",
-            validation: [
-              {
-                required: true,
-              },
-            ],
           },
         ],
       },
@@ -64,19 +49,9 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             age: 5,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
           {
             wealth: "Rich",
-            validation: [
-              {
-                required: false,
-              },
-            ],
           },
         ],
       },
@@ -96,11 +71,6 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 15,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
         ],
       },
@@ -110,19 +80,9 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 15,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
           {
             job: "Mechanics",
-            validation: [
-              {
-                required: true,
-              },
-            ],
           },
         ],
       },
@@ -132,19 +92,9 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             age: 5,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
           {
             wealth: "Rich",
-            validation: [
-              {
-                required: false,
-              },
-            ],
           },
         ],
       },
@@ -164,11 +114,6 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 11,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
         ],
       },
@@ -188,11 +133,6 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 25,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
         ],
       },
@@ -212,11 +152,6 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 15,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
         ],
       },
@@ -236,11 +171,6 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 25,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
         ],
       },
@@ -260,11 +190,6 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 35,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
         ],
       },
@@ -284,11 +209,6 @@ export const missionTableData: MissionDataInt[] = [
         fields: [
           {
             experience: 25,
-            validation: [
-              {
-                minValue: 10,
-              },
-            ],
           },
         ],
       },

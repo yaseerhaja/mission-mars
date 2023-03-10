@@ -7,3 +7,27 @@
     align-items: baseline;
   }
 }
+
+@media (max-width: 640px) {
+  .Mission {
+    .wizard-container-form1 {
+      flex-flow: column;
+      align-items: center;
+
+      & > div {
+        margin: 12px 0;
+      }
+    }
+
+    .wizard-container-form2 {
+      .flex-container {
+        margin: 24px 0;
+        flex-flow: column;
+
+        button {
+          margin: auto;
+        }
+      }
+    }
+  }
+}
